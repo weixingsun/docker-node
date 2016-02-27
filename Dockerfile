@@ -24,3 +24,4 @@ EXPOSE 22 80
 #CMD ["/bin/bash", ""]
 #docker build -t wsun/nginx_node .
 #docker run --name node -d --ulimit nofile=40960:40960 -p 80:80 -p 22:22 -i wsun/nginx_node
+#docker run --name node -d --ulimit nofile=40960:40960 -p 80:80 -i wsun/nginx_node
