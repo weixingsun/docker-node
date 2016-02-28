@@ -14,6 +14,7 @@ RUN cd /opt && wget https://nodejs.org/dist/latest/node-$NODE_VER.tar.gz && \
 WORKDIR /opt
 RUN /opt/node/bin/npm install --save express couchbase body-parser
 COPY conf/sysctl.conf /etc/sysctl.conf
+COPY conf/limit.conf /etc/security/limits.d/node.conf
 COPY conf/nginx.conf /etc/nginx/nginx.conf
 COPY conf/sites.default /etc/nginx/sites-enabled/default
 COPY src/msg.js /opt/msg.js
@@ -21,7 +22,8 @@ COPY src/run.sh /run.sh
 #RUN service nginx restart
 RUN apt-get purge -y --auto-remove $buildDeps
 ENTRYPOINT ["/run.sh"]
-EXPOSE 22 80
+EXPOSE 80
+#EXPOSE 22 80
 #CMD ["/usr/sbin/sshd", "-D"]
 #CMD ["/bin/bash", ""]
 #docker build -t wsun/nginx_node .
