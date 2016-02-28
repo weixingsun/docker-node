@@ -10,10 +10,11 @@ RUN apt-get -qq update && apt-get -y install openssh-server wget $buildDeps && \
     cd /opt && wget https://nodejs.org/dist/latest/node-$NODE_VER.tar.gz && \
     tar -xzf node-$NODE_VER.tar.gz && mv node-$NODE_VER node && \
     cd /usr/local/bin && ln -s /opt/node/bin/* . && rm -f /opt/node*.tar.gz && \
-    /opt/node/bin/npm install --save express couchbase body-parser && \
+    cd /opt && /opt/node/bin/npm install --save express couchbase body-parser && \
     apt-get purge -y --auto-remove $buildDeps && \
     mv /opt/sysctl.conf /etc/ && mv /opt/limit.conf /etc/security/limits.d/ && \
-    mv /opt/nginx.conf /etc/nginx/ && mv /opt/sites.default /etc/nginx/
+    mv /opt/nginx.conf /etc/nginx/ && mv /opt/sites.default /etc/nginx/ && \
+    mkdir /www && echo "" > /www/index.html
 ENTRYPOINT ["/opt/run.sh"]
 EXPOSE 80
 #EXPOSE 22 80
